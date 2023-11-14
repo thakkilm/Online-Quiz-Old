@@ -1,0 +1,52 @@
+
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <style media="screen">
+        a:link {
+            text-decoration: none;
+        }
+
+        h6 {
+            text-align: center;
+        }
+
+        .row {
+            margin: 100px;
+        }
+    </style>
+</head>
+<br><br>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h6 class="panel-title">Report - {{course.course_name}}</h6>
+            <div style="display: flex; gap: 10px;">
+                <h7>Average: {{average}}</h7>
+                <h7>Count: {{resultCount}}</h7>
+            </div>
+        </div>
+        <table class="table table-hover table-bordered" id="dev-table">
+            <thead>
+                <tr>
+
+                    <th>Name</th>
+                    <th>Marks</th>
+                    <th>Date</th>
+            </thead>
+            {% for t in results %}
+            <tr>
+
+                <td> {{t.student.user.username}}</td>
+                <td>{{t.marks}}/{{course.total_marks}}</td>
+                <td>{{t.date}}</td>
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<br><br><br><br><br><br>

@@ -1,0 +1,73 @@
+{% extends 'teacher/teacherbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+  a:link {
+        text-decoration: none;
+      }
+    
+  </style>
+</head>
+<h2 style="text-align:center;">Question</h2>
+<form method="POST" autocomplete="off" style="margin:100px;margin-top: 0px;">
+    {%csrf_token%}
+    <div class="form-group">
+        <label for="question">Course - </label>
+        <b>{{course.course_name}}</b>
+        <br>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h6 class="panel-title">Questions</h6>
+        </div>
+        <table class="table table-hover table-bordered" id="teacher-list">
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Marks</th>
+                    <th>Option-1</th>
+                    <th>Option-2</th>
+                    <th>Option-3</th>
+                    <th>Option-4</th>
+                    <th>Answer</th>
+                </tr>
+            </thead>
+            <form>
+            {% for q in questions %}
+            <tr>
+                <td><textarea rows="5" name="question-{{q.id}}">{{q.question}}</textarea></td>
+                <td><input type="number" name="mark-{{q.id}}" value="{{q.marks}}"></td>
+                <td><input type="text" name="opt1-{{q.id}}" value="{{q.option1}}"></td>
+                <td><input type="text" name="opt2-{{q.id}}" value="{{q.option2}}"></td>
+                <td><input type="text" name="opt3-{{q.id}}" value="{{q.option3}}"></td>
+                <td><input type="text" name="opt4-{{q.id}}" value="{{q.option4}}"></td>
+                <td>
+                    <select name="answer-{{q.id}}">
+                        <option value="Option1" {% if '1' in q.answer %}selected="selected"{% endif %}>Option 1</option>
+                        <option value="Option2" {% if '2' in q.answer %}selected="selected"{% endif %}>Option 2</option>
+                        <option value="Option3" {% if '3' in q.answer %}selected="selected"{% endif %}>Option 3</option>
+                        <option value="Option4" {% if '4' in q.answer %}selected="selected"{% endif %}>Option 4</option>
+                    </select>
+                </td>
+            </tr>
+            {% endfor %}
+            </form>
+        </table>
+    </div>
+    
+
+    <button type="submit" class="btn btn-success" style="border-radius: 0%; width: 100%;">Submit Questions</button>
+  </form>
+<br><br><br>
+{% endblock content %}
