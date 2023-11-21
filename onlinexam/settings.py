@@ -18,7 +18,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 STATIC_DIR=os.path.join(BASE_DIR,'static')
 MEDIA_ROOT=os.path.join(BASE_DIR,'static')
 
-STATIC_ROOT = '/path/to/your/static/root'
+STATIC_ROOT = '/home/ubuntu/Online-Quiz/static/'
 
 
 # Quick-start development settings - unsuitable for production
@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'student',
     'widget_tweaks',
 
+
+
 ]
 
 MIDDLEWARE = [
@@ -57,6 +59,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+
 ]
 CSRF_COOKIE_SECURE=False
 ROOT_URLCONF = 'onlinexam.urls'
@@ -76,6 +80,10 @@ TEMPLATES = [
         },
     },
 ]
+
+
+
+
 
 WSGI_APPLICATION = 'onlinexam.wsgi.application'
 

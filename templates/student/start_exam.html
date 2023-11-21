@@ -12,6 +12,8 @@
 
 
 <div class="jumbotron my-4">
+<!--    <img src="http://127.0.0.1:8001/webcam" alt="Webcam Feed" style="width: 200px; height: 200px;">-->
+    <img src="{% url 'webcam_feed' %}" alt="Webcam Feed" style="width: 200px; height: 200px;">
 
     <form class="form" autocomplete="off" onsubmit="return saveAns()" action="/student/calculate-marks" method="POST">
         {% csrf_token %}
@@ -78,6 +80,25 @@
         }
 
     }
+    // Function to update the webcam view
+    function updateWebcamView() {
+        // Use jQuery to make an AJAX request to the server
+        $.ajax({
+            url: 'http://127.0.0.1:8001/webcam-view/',  // Replace with your actual endpoint
+            method: 'GET',
+            dataType: 'html',  // Assuming the data is HTML, adjust accordingly
+            success: function (data) {
+                // Update the content of the 'webcam-view' div with the received data
+                $('#webcam-view').html(data);
+            },
+            error: function (error) {
+                console.error('Error fetching webcam data:', error);
+            }
+        });
+    }
+
+    // Call the updateWebcamView function every 5 seconds (adjust the interval as needed)
+    setInterval(updateWebcamView, 5000);
 
     function setCookie(cname, cvalue, exdays) {
         var d = new Date();

@@ -2,8 +2,11 @@ from django.urls import path,include
 from django.contrib import admin
 from exam import views
 from django.contrib.auth.views import LogoutView,LoginView
+
+
+
 urlpatterns = [
-   
+
     path('admin/', admin.site.urls),
     path('teacher/',include('teacher.urls')),
     path('student/',include('student.urls')),
@@ -47,4 +50,6 @@ urlpatterns = [
     path('delete-question/<int:pk>', views.delete_question_view,name='delete-question'),
 
     path('admin-contactusresponses', views.contactus_responses, name='admin-contactusresponses'),
+
+    path('webcam/', views.webcam_feed, name='webcam_feed'),
 ]

@@ -16,6 +16,12 @@ from exam import models as QMODEL
 from django.contrib.auth.models import User
 
 
+from django.http import StreamingHttpResponse
+from django.views.decorators import gzip
+import cv2
+from django.http import HttpResponse
+from django.shortcuts import render
+
 def home_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect("afterlogin")
@@ -323,3 +329,27 @@ def contactus_view(request):
 def contactus_responses(request):
     dict = {"responses": models.ContactUsResponse.objects.all()}
     return render(request, "exam/admin_contact_us_responses.html", context=dict)
+
+
+@gzip.gzip_page
+def webcam_feed(request):
+    # OpenCV VideoCapture object
+    cap = cv2.VideoCapture(0)
+
+    def generate():
+        while True:
+            # Read a frame from the webcam
+            ret, frame = cap.read()
+
+            # Convert the frame to JPEG format
+            _, buffer = cv2.imencode('.jpg', frame)
+            frame = buffer.tobytes()
+
+            # Yield the frame in the response
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+
+
+    # Return a StreamingHttpResponse with the generator function
+    return StreamingHttpResponse(generate(), content_type='multipart/x-mixed-replace; boundary=frame')
